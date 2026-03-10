@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Subscription extends Model
 {
@@ -13,7 +14,7 @@ class Subscription extends Model
         'type',
         'price',
     ];
-
+    use HasFactory;
     public function member()
     {
         return $this->belongsTo(Member::class);

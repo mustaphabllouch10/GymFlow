@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Payment extends Model
 {
@@ -13,7 +14,7 @@ class Payment extends Model
         'payment_date',
         'method',
     ];
-
+    use HasFactory;
     public function member()
     {
         return $this->belongsTo(Member::class);

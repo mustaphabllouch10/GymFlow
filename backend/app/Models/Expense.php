@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Expense extends Model
 {
@@ -11,4 +12,6 @@ class Expense extends Model
         'amount',
         'expense_date'
     ];
+    use HasFactory;
+
 }

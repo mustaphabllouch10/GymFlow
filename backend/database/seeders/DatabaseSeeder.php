@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             PaymentTableSeeder::class,
             AttendanceTableSeeder::class,
             ExpenseTableSeeder::class,
+            PlanSeeder::class,
         ]);
     }
 }

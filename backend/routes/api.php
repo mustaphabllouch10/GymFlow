@@ -33,12 +33,16 @@ Route::apiResource('members', MemberController::class)
 // routes for subscriptions , accessible by both admin and user
 Route::apiResource('members.subscriptions', SubscriptionController::class);
 
+// this route is for the admin to see all the subscriptions in the system , and it will be paginated
+Route::get('/subscriptions', function () {
+    $subscriptions = Subscription::with('member')->paginate(5);
+    return response()->json($subscriptions);
+})->middleware('auth:sanctum');
+
 
 // routes for plans , accessible by both admin and user
 Route::apiResource('plans', PlanController::class)
 ->middleware('auth:sanctum');
-
-
 
 
 

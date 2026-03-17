@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\dashboardController;
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
@@ -19,6 +20,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 route::apiResource('users', UserController::class)
 ->middleware('auth:sanctum' , "admin");
 
+// route for dashboard , only accessible by admin
+route::get('/dashboard', [dashboardController::class, 'index'])
+->middleware('auth:sanctum' , "admin");
 
 
 // routes for members , accessible by both admin and user
@@ -31,13 +35,16 @@ Route::apiResource('members', MemberController::class)
  */
 
 // routes for subscriptions , accessible by both admin and user
-Route::apiResource('members.subscriptions', SubscriptionController::class);
+Route::apiResource('members.subscriptions', SubscriptionController::class)
+->middleware('auth:sanctum');
 
 // this route is for the admin to see all the subscriptions in the system , and it will be paginated
 Route::get('/subscriptions', function () {
     $subscriptions = Subscription::with('member')->paginate(5);
     return response()->json($subscriptions);
 })->middleware('auth:sanctum');
+
+// we will need routes for the attendance , i get back to it rlly quick
 
 
 // routes for plans , accessible by both admin and user

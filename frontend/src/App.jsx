@@ -1,11 +1,13 @@
-import React from 'react';
-import Attendance from './attendance/attendance';
+import Login from './features/auth/Login';
+import './App.css';
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <h1>Welcome to GymFlow</h1>
-      <Attendance />
+    <div className="App">
+      {/* Hna nqdrou n-zido logic mn b3d bach ila kan user m-connecti ychouf Dashboard */}
+      <Login />
     </div>
   );
 }
+
+export default App;

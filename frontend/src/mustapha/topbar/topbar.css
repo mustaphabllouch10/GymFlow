@@ -1,0 +1,17 @@
+.topbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+.topbar h2{
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+    padding: auto;
+    margin: auto;
+}
+
+

@@ -6,9 +6,8 @@ import { BsWallet2 } from "react-icons/bs";
 import { LuScanLine } from "react-icons/lu";
 import "./sidebar.css";
 
-export default function SideBarNav() {
+export default function SideBarNav({ activeSection, setActiveSection }) {
 
-    const [activeItem, setActiveItem] = useState("dashboard");
 
         const navItems = [
   { id: "dashboard",     label: "Dashboard",     icon: <RiDashboardLine size={20} /> },
@@ -23,8 +22,8 @@ export default function SideBarNav() {
             {navItems.map((item) => (
                 <button
                     key={item.id}
-                    className={`sidebar__item ${activeItem === item.id ? "sidebar__item--active" : ""}`}
-                    onClick={() => setActiveItem(item.id)}>
+                    className={`sidebar__item ${activeSection === item.id ? "sidebar__item--active" : ""}`}
+                    onClick={() => setActiveSection(item.id)}>
 
                     <span className="sidebar__icon">{item.icon}</span>
                     <span className="sidebar__label">{item.label}</span>

@@ -12,7 +12,16 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $members = Member::paginate(5);
+        $query = Member::query();
+        if (request()->has('search') && request('search') !== null && request('search') !== '') {
+            $search = request('search');
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%")
+                  ->orWhere('phone', 'like', "%$search%" );
+            });
+        }
+        $members = $query->paginate(10);
         return response()->json($members);
     }
 

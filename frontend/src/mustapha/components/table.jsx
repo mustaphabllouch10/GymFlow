@@ -10,6 +10,7 @@ export default function Table({ members, searchTerm }) {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Member</th>
+                  <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                   <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                   <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                   <th className="px-5 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Join Date</th>
@@ -25,6 +26,7 @@ export default function Table({ members, searchTerm }) {
                           <span className="font-medium text-gray-900">{member.name || member.fullName || '—'}</span>
                         </div>
                       </td>
+                      <td className="px-5 py-3 whitespace-nowrap">{member.email || '—'}</td>
                       <td className="px-5 py-3 whitespace-nowrap">{member.phone || '—'}</td>
                       <td className="px-5 py-3 whitespace-nowrap">
                         {member.status === 'Active' ? (

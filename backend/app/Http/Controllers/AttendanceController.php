@@ -65,7 +65,6 @@ class AttendanceController extends Controller
         $attendance->update($validatedData);
         return response()->json($attendance);
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -73,4 +72,6 @@ class AttendanceController extends Controller
     {
         // i dont think we need to delete an attendance record just in case we need it
     }
+
+        
 }

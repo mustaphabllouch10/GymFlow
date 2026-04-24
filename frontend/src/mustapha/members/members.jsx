@@ -17,25 +17,20 @@ export default function Members() {
     return(
         <div className="members">
 
-          <div>
-            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-
-            <button className="bg-blue-500 hover:bg-blue-700 text-black font-bold py-2 px-4 rounded">
-                Add Member
-            </button>
+          <div className="flex items-center justify-between gap-4 mb-6 w-full">
+            <div className="flex-1">
+              <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+            </div>
+            <div>
+              <AddMember />
+            </div>
           </div>
 
-          
+          <div className="bg-white rounded-xl shadow mx-4 my-8 md:mx-12 md:my-12 w-auto max-w-full overflow-auto" style={{ maxHeight: '100vh' }}>
+            <Table members={members} searchTerm={searchTerm} />
+          </div>
 
-          <Table members={members} searchTerm={searchTerm} />
-
-
-            <Fetching setMembers={setMembers} searchTerm={searchTerm} />
-
-
-            </div>
-            
+          <Fetching setMembers={setMembers} searchTerm={searchTerm} />
+        </div>
     )
-
-
 }

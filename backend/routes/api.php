@@ -54,5 +54,10 @@ Route::apiResource('plans', PlanController::class);
 // ->middleware('auth:sanctum');
 
 
+// exportation routes 
+
+Route::get("/exportMembers" , [MemberController::class , "exportMembers"]);
+
+
 
 

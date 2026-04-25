@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Table from "../components/table";
 import AddMember from "./addMember";
 import Search from "./search";
+import Export from "./export";
 
 export default function Members() {
 
@@ -19,7 +20,10 @@ export default function Members() {
 
           <div className="flex items-center justify-between gap-4 mb-6 w-full">
             <div className="flex-1">
-              <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+              <Search searchTerm={searchTerm}  setSearchTerm={setSearchTerm} />
+            </div>
+            <div>
+              <Export />
             </div>
             <div>
               <AddMember />

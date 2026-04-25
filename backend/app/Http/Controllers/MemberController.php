@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Member;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\MembersExport;
 
 class MemberController extends Controller
 {
@@ -87,6 +89,11 @@ class MemberController extends Controller
         }
         $member->delete();
         return response()->json(['message' => 'Member deleted successfully']);
+    }
+
+    public function exportMembers()
+    {
+        return Excel::download(new MembersExport , "members.xlsx") ;
     }
 }
 

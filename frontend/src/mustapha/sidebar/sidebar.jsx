@@ -4,12 +4,12 @@ import SideBarNav from "./sideBarNav";
 import SidebarFooter from "./sidebarFooter";
 
 
-export default function Sidebar({ activeSection, setActiveSection }) {
+export default function Sidebar({ currentPath , navItems}) {
 
   return (
     <div className="sidebar">
         <GymLogo />
-        <SideBarNav activeSection={activeSection} setActiveSection={setActiveSection} />
+        <SideBarNav currentPath={currentPath} navItems={navItems} />
         <SidebarFooter />
     </div>   
     )

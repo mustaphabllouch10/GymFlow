@@ -1,10 +1,13 @@
 import "./topbar.css";
 
-export default function TopBar({ activeSection }) {
+export default function TopBar({ currentPath }) {
+
+    const path = currentPath;
+    const label = path.replace("/", "").charAt(0).toUpperCase() + path.slice(2);
 
     return(
         <div className="topbar">
-            <h2>{activeSection}</h2>
+            <h2>{label}</h2>
         </div>
     )
 }

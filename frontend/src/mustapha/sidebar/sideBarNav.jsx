@@ -7,16 +7,10 @@ import { LuScanLine } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import "./sidebar.css";
 
-export default function SideBarNav({ activeSection, setActiveSection }) {
+export default function SideBarNav({ currentPath, navItems }) {
 
 
-        const navItems = [
-  { id: "dashboard",     label: "Dashboard",     icon: <RiDashboardLine size={20} /> },
-  { id: "members",       label: "Members",        icon: <PiUsersThreeBold size={20} /> },
-  { id: "subscriptions", label: "Subscriptions",  icon: <MdOutlineCreditCard size={20} /> },
-  { id: "payments",      label: "Payments",       icon: <BsWallet2 size={20} /> },
-  { id: "attendance",    label: "Attendance",     icon: <LuScanLine size={20} /> },
-    ];
+
 
     return (
         <nav className="sidebar-nav">
@@ -25,7 +19,7 @@ export default function SideBarNav({ activeSection, setActiveSection }) {
                 <Link to={`/${item.id}`} key={item.id}>
                     <button
                         key={item.id}
-                        className={`sidebar__item ${activeSection === item.id ? "sidebar__item--active" : ""}`
+                        className={`sidebar__item ${currentPath === `/${item.id}` ? "sidebar__item--active" : ""}`
                         }>
 
                     <span className="sidebar__icon">{item.icon}</span>

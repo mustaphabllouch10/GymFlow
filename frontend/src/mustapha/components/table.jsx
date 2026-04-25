@@ -48,6 +48,7 @@ export default function Table({ members, searchTerm }) {
       )}
     </tbody>
 
+
   </table>
 </div>
     );

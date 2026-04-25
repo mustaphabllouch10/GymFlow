@@ -20,6 +20,7 @@ class MemberFactory extends Factory
                 'name' => $this->faker->name(),
                 'email' => $this->faker->unique()->safeEmail(),
                 'phone' => $this->faker->unique()->phoneNumber(),
+                "status" => $this->faker->randomElement(['active', 'inactive']),
                 'joined_date' => $this->faker->date(),
             ];
 }

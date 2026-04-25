@@ -26,9 +26,11 @@ export default function Table({ members, searchTerm }) {
             <td className="px-5 py-3">{member.email || '—'}</td>
             <td className="px-5 py-3">{member.phone || '—'}</td>
             <td className="px-5 py-3">
-              {member.status === 'Active' ? (
+              {member.status === 'active' ? (
                 <span className="px-3 py-1 rounded-full text-xs bg-green-100 text-green-800">Active</span>
-              ) : member.status === 'Expired' ? (
+              ) : member.status === 'inactive' ? (
+                <span className="px-3 py-1 rounded-full text-xs bg-red-100 text-gray-700">Inactive</span>
+              ) : member.status === 'expired' ? (
                 <span className="px-3 py-1 rounded-full text-xs bg-red-100 text-red-700">Expired</span>
               ) : (
                 <span className="px-3 py-1 rounded-full text-xs bg-gray-100 text-gray-700">{member.status || '—'}</span>

@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\CheckinController;
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
@@ -48,6 +49,8 @@ Route::get('/subscriptions', function () {
 
 // we will need routes for the attendance , i get back to it rlly quick
 
+Route::post('/checkin', [CheckinController::class, 'checkin']);
+
 
 // routes for plans , accessible by both admin and user
 Route::apiResource('plans', PlanController::class);
@@ -57,7 +60,4 @@ Route::apiResource('plans', PlanController::class);
 // exportation routes 
 
 Route::get("/exportMembers" , [MemberController::class , "exportMembers"]);
-
-
-
 

@@ -12,6 +12,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\CheckinController;
+use App\Http\Controllers\AttendanceController;
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
@@ -30,6 +31,10 @@ route::get('/dashboard', [dashboardController::class, 'index']);
 // routes for members , accessible by both admin and user
 Route::apiResource('members', MemberController::class);
 // ->middleware('auth:sanctum');
+
+// route for dashboard , only accessible by admin
+route::get('/attendance', [AttendanceController::class, 'index']);
+// ->middleware('auth:sanctum' , "admin");
 
 
 /**

@@ -12,10 +12,31 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-        $attendance = Attendance::paginate(8);
-        return response()->json($attendance);
+        $query = Attendance::query();
 
-        
+        // Filter by member name
+        if (request()->filled('member')) {
+            $member = request('member');
+            $query->whereHas('member', function ($q) use ($member) {
+                $q->where('name', 'like', "%$member%");
+            });
+        }
+
+        // Filter by date range
+        if (request()->filled('date_from')) {
+            $query->whereDate('check_in_date', '>=', request('date_from'));
+        }
+        if (request()->filled('date_to')) {
+            $query->whereDate('check_in_date', '<=', request('date_to'));
+        }
+
+        // Filter by status
+        if (request()->filled('status')) {
+            $query->where('status', request('status'));
+        }
+
+        $attendance = $query->with('member')->paginate(10);
+        return response()->json($attendance);
     }
 
     /**
@@ -33,7 +54,7 @@ class AttendanceController extends Controller
             'check_out_time' => 'nullable|date_format:Y-m-d H:i:s|after:check_in_time',
         ]);
 
-        Attendance::create($validatedData);
+        Attendance::create($validatedData + ['status' => 'present']);
         return response()->json($validatedData, 201);
     }
 
@@ -60,9 +81,9 @@ class AttendanceController extends Controller
         }
         $validatedData = $request->validate([
             'member_id' => 'required|exists:members,id',
-            'check_out_time' => 'required|date_format:Y-m-d H:i:s|after:check_in_time',
+            'check_out_time' => 'required|date_format:H:i:s|after:check_in_time',
         ]);
-        $attendance->update($validatedData);
+        $attendance->update($validatedData + ['status' => 'absent']);
         return response()->json($attendance);
     }
     /**

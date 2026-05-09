@@ -33,3 +33,5 @@ class CheckinController extends Controller
 
     }
 }
+
+

@@ -5,6 +5,7 @@ import Sidebar from "./mustapha/sidebar/sidebar";
 import TopBar from "./mustapha/topbar/topbar";
 import Members from "./mustapha/members/members";
 import Attendance from "./mustapha/attendance/attendance";
+import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import { Routes, Route } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
@@ -24,6 +25,7 @@ export default function App() {
             { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
             { id: "payments",      label: "Payments", sectionComponents: "", icon: <BsWallet2 size={20} /> },
             { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <LuScanLine size={20} /> },
+            { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
     ];
 
     const location = useLocation();

@@ -55,6 +55,7 @@ Route::get('/subscriptions', function () {
 // we will need routes for the attendance , i get back to it rlly quick
 
 Route::post('/checkin', [CheckinController::class, 'checkin']);
+Route::post('/checkout', [CheckinController::class, 'checkout']);
 
 
 // routes for plans , accessible by both admin and user

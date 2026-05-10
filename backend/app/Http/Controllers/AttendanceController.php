@@ -11,33 +11,36 @@ class AttendanceController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $query = Attendance::query();
+{
+    $query = Attendance::query();
 
-        // Filter by member name
-        if (request()->filled('member')) {
-            $member = request('member');
-            $query->whereHas('member', function ($q) use ($member) {
-                $q->where('name', 'like', "%$member%");
-            });
-        }
+    if (request()->filled('member')) {
+        $member = request('member');
 
-        // Filter by date range
-        if (request()->filled('date_from')) {
-            $query->whereDate('check_in_date', '>=', request('date_from'));
-        }
-        if (request()->filled('date_to')) {
-            $query->whereDate('check_in_date', '<=', request('date_to'));
-        }
-
-        // Filter by status
-        if (request()->filled('status')) {
-            $query->where('status', request('status'));
-        }
-
-        $attendance = $query->with('member')->paginate(10);
-        return response()->json($attendance);
+        $query->whereHas('member', function ($q) use ($member) {
+            $q->where('name', 'like', "%$member%");
+        });
     }
+
+    if (request()->filled('date_from')) {
+        $query->whereDate('check_in_date', '>=', request('date_from'));
+    }
+
+    if (request()->filled('date_to')) {
+        $query->whereDate('check_in_date', '<=', request('date_to'));
+    }
+
+    if (request()->filled('status')) {
+        $query->where('status', request('status'));
+    }
+
+    $attendance = $query
+        ->with('member')
+        ->latest('check_in_date')
+        ->paginate(10);
+
+    return response()->json($attendance);
+}
 
     /**
      * Store a newly created resource in storage.

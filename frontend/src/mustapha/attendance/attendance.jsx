@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import FeatchingAttendence from "./featchingAttendence";
+import FetchingAttendence from "./featchingAttendence";
 import AttendanceTable from "./attendancetable";
 
 export default function Attendance() {
@@ -9,7 +8,7 @@ export default function Attendance() {
     member: "",
     dateFrom: "",
     dateTo: "",
-    status: ""
+    status: "",
   });
 
   const handleInputChange = (e) => {
@@ -18,47 +17,66 @@ export default function Attendance() {
   };
 
   return (
-    <div className="p-4">
-      {/* Filters UI */}
-      <div className="flex flex-wrap gap-4 mb-6 items-end bg-white p-3 rounded-lg shadow-sm border border-gray-200">
-        <div className="flex flex-col">
-          <label className="text-xs font-semibold text-black mb-1">Member Name</label>
+    <div className="p-6 flex flex-col gap-6">
+
+      
+
+      {/* Filters card */}
+      <div className="bg-white border border-gray-200 rounded-xl p-4 flex flex-wrap gap-4 items-end">
+
+        {/* Member Name */}
+        <div className="flex flex-col gap-1 min-w-[180px]">
+          <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            Member Name
+          </label>
           <input
             type="text"
             name="member"
             value={filters.member}
             onChange={handleInputChange}
             placeholder="Search by name"
-            className="px-3 py-2 border border-gray-300 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="text-xs font-semibold text-black mb-1">Date From</label>
+
+        {/* Date From */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            Date From
+          </label>
           <input
             type="date"
             name="dateFrom"
             value={filters.dateFrom}
             onChange={handleInputChange}
-            className="px-3 py-2 border border-gray-300 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="text-xs font-semibold text-black mb-1">Date To</label>
+
+        {/* Date To */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            Date To
+          </label>
           <input
             type="date"
             name="dateTo"
             value={filters.dateTo}
             onChange={handleInputChange}
-            className="px-3 py-2 border border-gray-300 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="text-xs font-semibold text-black mb-1">Status</label>
+
+        {/* Status */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+            Status
+          </label>
           <select
             name="status"
             value={filters.status}
             onChange={handleInputChange}
-            className="px-3 py-2 border border-gray-300 rounded bg-white text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition"
           >
             <option value="">All</option>
             <option value="present">Present</option>
@@ -66,8 +84,13 @@ export default function Attendance() {
           </select>
         </div>
       </div>
-      <FeatchingAttendence setAttendanceData={setAttendanceData} filters={filters} />
-      <AttendanceTable attendances={attendanceData} />
+
+      {/* Table card */}
+      <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+        <FetchingAttendence setAttendanceData={setAttendanceData} filters={filters} />
+        <AttendanceTable attendances={attendanceData} />
+      </div>
+
     </div>
   );
 }

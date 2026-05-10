@@ -25,7 +25,9 @@ class CheckinController extends Controller
 
         $attendance = Attendance::create([
             'member_id' => $memberId,
-            'check_in_date' => now()->toTimeString(),    
+            'check_in_date' => now()->toDateTimeString(), 
+            "check_in_time" => now()->toTimeString(),
+            "check_out_date" => null, 
             'status' => 'present',
         ]);
 
@@ -44,15 +46,15 @@ class CheckinController extends Controller
         $memberId = $request->input("member_id");
 
         $attendance = Attendance::where('member_id', $memberId)
-            ->whereNull('check_out_date')
-            ->first();
+        ->whereNull('check_out_time')
+        ->first();
 
         if (!$attendance) {
             return response()->json(['message' => 'No active check-in found for this member'], 404);
         }
 
         $attendance->update([
-            'check_out_date' => now()->toTimeString(),
+            'check_out_time' => now()->toTimeString(),
             'status' => 'absent',
         ]);
 

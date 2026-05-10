@@ -1,31 +1,50 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 
-export default function PostCheckin({ state, scannedText }) {
+export default function PostCheckin({ state, scannedText, onSuccess }) {
+  const lastScanned = useRef(null);
+  const lastState   = useRef(null);
 
-    useEffect(() => {
-        if (!scannedText || !state) return;
+  useEffect(() => {
+    if (!scannedText || !state) return;
 
-        if (state === "checkin") {
-            axios.post("http://localhost:8000/api/checkin", {
-                member_id: scannedText,
-            });
+    // Reset guard when mode switches
+    if (lastState.current !== state) {
+      lastScanned.current = null;
+      lastState.current   = state;
+    }
 
-            console.log("Checked in member ID:", scannedText);
-        }
+    // Don't re-fire for the exact same scan in the same mode
+    if (lastScanned.current === scannedText) return;
+    lastScanned.current = scannedText;
 
-        if (state === "checkout") {
-            axios.post("http://localhost:8000/api/checkout", {
-                member_id: scannedText,
-            });
+    // Show popup instantly — don't wait for the API
+    if (onSuccess) onSuccess({ name: "Member" });
 
-            console.log("Checked out member ID:", scannedText);
-        }
+    const endpoint =
+      state === "checkin"
+        ? "http://localhost:8000/api/checkin"
+        : "http://localhost:8000/api/checkout";
 
-    }, [scannedText, state]);
+    // API call runs in background — updates popup name when it resolves
+    axios
+      .post(endpoint, { member_id: scannedText })
+      .then((response) => {
+        console.log(`${state} success:`, response.data);
 
-    return (
-        <div>
-        </div>
-    );
+        const member =
+          response.data?.member ??
+          response.data?.data ??
+          (response.data?.name ? response.data : null);
+
+        // Update popup with real member name if available
+        if (member && onSuccess) onSuccess(member);
+      })
+      .catch((error) => {
+        console.error(`${state} failed:`, error);
+      });
+
+  }, [scannedText, state]);
+
+  return null;
 }

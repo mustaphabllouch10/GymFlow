@@ -1,6 +1,6 @@
 
 
-export default function Table({ members, searchTerm }) {
+export default function Table({ members, searchTerm, setSelectedMember }) {
                 console.log("Rendering Table with members:", members, "and searchTerm:", searchTerm);
 
 
@@ -21,7 +21,7 @@ export default function Table({ members, searchTerm }) {
     <tbody className="bg-white divide-y divide-gray-200">
       {members && members.length > 0 ? (
         members.map((member) => (
-          <tr key={member.id || member._id} className="hover:bg-gray-50">
+          <tr key={member.id || member._id} className="hover:bg-gray-50" onClick={() => setSelectedMember(member)}>
             <td className="px-5 py-3">{member.name || member.fullName || '—'}</td>
             <td className="px-5 py-3">{member.email || '—'}</td>
             <td className="px-5 py-3">{member.phone || '—'}</td>

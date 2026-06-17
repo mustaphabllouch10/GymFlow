@@ -6,6 +6,7 @@ import TopBar from "./mustapha/topbar/topbar";
 import Members from "./mustapha/members/members";
 import Attendance from "./mustapha/attendance/attendance";
 import QrScanner from "./mustapha/QrScanner/Qrscanner";
+import Login from "./mustapha/login/login";
 import { Routes, Route } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
@@ -18,6 +19,8 @@ import { useLocation } from "react-router-dom";
 
 
 export default function App() {
+
+  const [isloggedIn, setIsLoggedIn] = useState(true);
   
     const navItems = [
             { id: "dashboard",     label: "Dashboard", sectionComponents: "" , icon: <RiDashboardLine size={20} /> },
@@ -33,6 +36,7 @@ export default function App() {
     console.log("Current Path:", currentPath);
 
   return (
+    ( isloggedIn ?  
     <div className="flex h-screen">
       <div className="w-[270px]">
           <Sidebar currentPath={currentPath} navItems={navItems} />
@@ -50,9 +54,12 @@ export default function App() {
                   element={item.sectionComponents || <div className="p-8 text-gray-500">{item.label} page coming soon.</div>}
                 />
               ))}
+              <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </div>
       </div>
     </div>
+    : <Login /> )
   )
 }

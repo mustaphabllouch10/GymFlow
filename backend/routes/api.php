@@ -24,13 +24,13 @@ route::apiResource('users', UserController::class);
 
 
 // route for dashboard , only accessible by admin
-route::get('/dashboard', [dashboardController::class, 'index']);
-// ->middleware('auth:sanctum' , "admin");
+route::get('/dashboard', [dashboardController::class, 'index'])
+->middleware('auth:sanctum' , "admin");
 
 
 // routes for members , accessible by both admin and user
-Route::apiResource('members', MemberController::class);
-// ->middleware('auth:sanctum');
+Route::apiResource('members', MemberController::class)
+->middleware('auth:sanctum');
 
 // route for dashboard , only accessible by admin
 route::get('/attendance', [AttendanceController::class, 'index']);

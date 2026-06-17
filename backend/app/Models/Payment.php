@@ -15,10 +15,7 @@ class Payment extends Model
         'method',
     ];
     use HasFactory;
-    public function member()
-    {
-        return $this->belongsTo(Member::class);
-    }
+    
 
     public function subscription()
     {

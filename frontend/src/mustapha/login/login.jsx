@@ -10,6 +10,8 @@ export default function Login() {
 
     const [handleLogin, setHandleLogin] = useState(false);
 
+    
+
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
@@ -39,7 +41,8 @@ export default function Login() {
                     </div>
                     <button type="submit"
                      className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
-                     onClick={() => setHandleLogin(true)}
+                     onClick={() => {
+                        setHandleLogin(true)}}
                      >Login</button>
                 </form>
             </div>

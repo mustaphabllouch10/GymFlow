@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function PostLogin({ loginData , setHandleLogin }) {
+
+
+export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn }) {
 
 
 
@@ -9,27 +11,33 @@ export default function PostLogin({ loginData , setHandleLogin }) {
     //  i think its something in the back end , 
     
     
-    useEffect(() => {
+    
         const checkLoginStatus = async () => {
             try {
-                console.log("Login data:");
-                await axios.get("http://localhost:8000/anctum/csrf-cookie");
-                
                 const response = await axios.post(
-                    "http://localhost:8000/api/login" , 
-                loginData , 
-                {withCredentials: true}
-                );
+                    "http://localhost:8000/api/login" , loginData );
 
                 if (response.status === 200) {
+
+                    const token = response.data.access_token;
+                    localStorage.setItem("token", token);
+                    
                     console.log("Login successful:", response.data);
-                    setHandleLogin(false);
+                    setIsLoggedIn(true);
+                    setHandleLogin(false);  
+                    
                 }
 
             } catch (error) {
                 console.error("Error checking login status:", error);
             }
-        }}, []);
+        };
+
+
+            checkLoginStatus();
+        
+
+        
     
         return (
             <div>

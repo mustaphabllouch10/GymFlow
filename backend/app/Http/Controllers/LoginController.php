@@ -26,9 +26,9 @@ class LoginController extends Controller
                 };
                 $token = $user->createToken('auth_token', $abilities)->plainTextToken;
                 return response()->json([
+                    'user' => $user,
                     'access_token' => $token,
-                    'token_type' => 'Bearer',
-                    'abilities' => $abilities
+                    'token_type' => 'Bearer'
                 ]);
             } else {
                 return response()->json(['message' => 'User not found after login'], 500);

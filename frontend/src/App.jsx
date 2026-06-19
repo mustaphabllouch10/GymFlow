@@ -20,7 +20,7 @@ import { useLocation } from "react-router-dom";
 
 export default function App() {
 
-  const [isloggedIn, setIsLoggedIn] = useState(false);
+  const [isloggedIn, setIsLoggedIn] = useState( true );
   
     const navItems = [
             { id: "dashboard",     label: "Dashboard", sectionComponents: "" , icon: <RiDashboardLine size={20} /> },
@@ -55,7 +55,7 @@ export default function App() {
                 />
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Login  setIsLoggedIn={setIsLoggedIn} />} />
             </Routes>
           </div>
       </div>

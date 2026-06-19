@@ -1,8 +1,7 @@
-import {useState} from "react";
+import { useState } from "react";
 import PostLogin from "./postLogin";
 
 export default function Login({ setIsLoggedIn }) {
-
     const [loginData, setLoginData] = useState({
         email: "",
         password: ""
@@ -10,48 +9,80 @@ export default function Login({ setIsLoggedIn }) {
 
     const [handleLogin, setHandleLogin] = useState(false);
 
-    
-
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-                <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+            <div className="bg-white rounded-2xl shadow-sm w-full max-w-md overflow-hidden">
+
+                {/* Header */}
+                <div className="px-8 py-6 border-b border-gray-100">
+                    <h2 className="text-2xl font-bold text-gray-900">Sign In</h2>
+                    <p className="text-sm text-gray-400 mt-1">Enter your credentials to continue</p>
+                </div>
+
+                {/* Body */}
                 <form
+                    className="px-8 py-6"
                     onSubmit={(e) => {
                         e.preventDefault();
                         setHandleLogin(true);
-                    }}>
+                    }}
+                >
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300" 
-                            value={loginData.email}
-                            onChange={(e) => setLoginData({...loginData, email: e.target.value})}
-                        />
+                        <label
+                            htmlFor="email"
+                            className="block text-xs font-semibold text-gray-400 tracking-wide uppercase mb-2"
+                        >
+                            Email
+                        </label>
+                        <div className="bg-gray-50 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-gray-900/10 transition-shadow">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                className="w-full bg-transparent font-mono text-sm text-gray-900 focus:outline-none placeholder:text-gray-400"
+                                placeholder="you@example.com"
+                                value={loginData.email}
+                                onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                            />
+                        </div>
                     </div>
+
                     <div className="mb-6">
-                        <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            name="password" 
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-300" 
-                            value={loginData.password}
-                            onChange={(e) => setLoginData({...loginData, password: e.target.value})}
-                        />
+                        <label
+                            htmlFor="password"
+                            className="block text-xs font-semibold text-gray-400 tracking-wide uppercase mb-2"
+                        >
+                            Password
+                        </label>
+                        <div className="bg-gray-50 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-gray-900/10 transition-shadow">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                className="w-full bg-transparent font-mono text-sm text-gray-900 focus:outline-none placeholder:text-gray-400"
+                                placeholder="••••••••"
+                                value={loginData.password}
+                                onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                            />
+                        </div>
                     </div>
-                    <button type="submit"
-                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
-                     >Login</button>
+
+                    <button
+                        type="submit"
+                        className="w-full bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-800 active:bg-black transition-colors"
+                    >
+                        Login
+                    </button>
                 </form>
             </div>
 
-            {handleLogin && 
-            <PostLogin setIsLoggedIn={setIsLoggedIn} loginData={loginData} setHandleLogin={setHandleLogin} />
-            }
+            {handleLogin && (
+                <PostLogin
+                    setIsLoggedIn={setIsLoggedIn}
+                    loginData={loginData}
+                    setHandleLogin={setHandleLogin}
+                />
+            )}
         </div>
     );
 }

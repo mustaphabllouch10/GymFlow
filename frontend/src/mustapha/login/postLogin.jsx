@@ -23,7 +23,7 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn })
                     localStorage.setItem("token", token);
                     
                     console.log("Login successful:", response.data);
-                    setIsLoggedIn();
+                    setIsLoggedIn(true);
                     setHandleLogin(false);  
                      
                 }

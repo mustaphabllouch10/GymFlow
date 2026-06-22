@@ -4,13 +4,13 @@ import SideBarNav from "./sideBarNav";
 import SidebarFooter from "./sidebarFooter";
 
 
-export default function Sidebar({ currentPath , navItems}) {
+export default function Sidebar({ currentPath , navItems, setLogout }) {
 
   return (
     <div className="sidebar">
         <GymLogo />
         <SideBarNav currentPath={currentPath} navItems={navItems} />
-        <SidebarFooter />
+        <SidebarFooter setLogout={setLogout} />
     </div>   
     )
 }

@@ -4,14 +4,7 @@ import axios from "axios";
 
 
 export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn }) {
-
-
-
-    // fix the state in app.jsx and this is not working yet ,
-    //  i think its something in the back end , 
-    
-    
-    
+        
         const checkLoginStatus = async () => {
             try {
                 const response = await axios.post(
@@ -39,9 +32,5 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn })
 
         
     
-        return (
-            <div>
-                <p>Logging in...</p>
-            </div>
-        )
+        
 }

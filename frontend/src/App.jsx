@@ -7,7 +7,7 @@ import Members from "./mustapha/members/members";
 import Attendance from "./mustapha/attendance/attendance";
 import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import Login from "./mustapha/login/login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route , Navigate } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { MdOutlineCreditCard } from "react-icons/md";
@@ -19,6 +19,7 @@ import { useLocation } from "react-router-dom";
 
 
 export default function App() {
+
   const [isloggedIn, setIsLoggedIn] = useState(true);
   useEffect(() => {
   if (localStorage.getItem("token")){ 
@@ -27,6 +28,8 @@ export default function App() {
   setIsLoggedIn(false);
   }
 }, []);
+
+const  [logout , setLogout] = useState(false);
   
   
   
@@ -47,7 +50,7 @@ export default function App() {
     ( isloggedIn ?  
     <div className="flex h-screen">
       <div className="w-[270px]">
-          <Sidebar currentPath={currentPath} navItems={navItems} />
+          <Sidebar currentPath={currentPath} navItems={navItems} setLogout={setLogout} />
       </div>
       <div className="flex-1 bg-[#f5f5f5] flex flex-col h-screen overflow-hidden">
           <TopBar currentPath={currentPath} />
@@ -62,11 +65,12 @@ export default function App() {
                 />
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
-              <Route path="/login" element={<Login   />} />
+              <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+              {/* <Route path="/logout" element={<Logout  />} /> */}
             </Routes>
           </div>
       </div>
     </div>
-    : <Login setIsLoggedIn={setIsLoggedIn} /> )
+    : <Navigate to="/login" /> )
   )
 }

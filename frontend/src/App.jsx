@@ -65,12 +65,18 @@ const  [logout , setLogout] = useState(false);
                 />
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
-              <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
               {/* <Route path="/logout" element={<Logout  />} /> */}
             </Routes>
           </div>
       </div>
     </div>
-    : <Navigate to="/login" /> )
+    : 
+        <Routes>
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes> )
   )
 }

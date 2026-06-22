@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn }) {
+
+        const navigate = useNavigate();
         
         const checkLoginStatus = async () => {
             try {
@@ -18,6 +21,7 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn })
                     console.log("Login successful:", response.data);
                     setIsLoggedIn(true);
                     setHandleLogin(false);  
+                    navigate("/dashboard"); 
                      
                 }
 

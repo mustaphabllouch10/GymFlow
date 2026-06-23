@@ -7,6 +7,7 @@ import Members from "./mustapha/members/members";
 import Attendance from "./mustapha/attendance/attendance";
 import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import Login from "./mustapha/login/login";
+import Logout from "./mustapha/login/logout";
 import { Routes, Route , Navigate } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
@@ -29,9 +30,8 @@ export default function App() {
   }
 }, []);
 
-const  [logout , setLogout] = useState(false);
-  
-  
+
+  // things i need to add : an error page , and an anothorization page 
   
     const navItems = [
             { id: "dashboard",     label: "Dashboard", sectionComponents: "" , icon: <RiDashboardLine size={20} /> },
@@ -50,7 +50,7 @@ const  [logout , setLogout] = useState(false);
     ( isloggedIn ?  
     <div className="flex h-screen">
       <div className="w-[270px]">
-          <Sidebar currentPath={currentPath} navItems={navItems} setLogout={setLogout} />
+          <Sidebar currentPath={currentPath} navItems={navItems} setIsLoggedIn={setIsLoggedIn} />
       </div>
       <div className="flex-1 bg-[#f5f5f5] flex flex-col h-screen overflow-hidden">
           <TopBar currentPath={currentPath} />
@@ -65,7 +65,7 @@ const  [logout , setLogout] = useState(false);
                 />
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
-              {/* <Route path="/logout" element={<Logout  />} /> */}
+              <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
             </Routes>
           </div>
       </div>

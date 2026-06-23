@@ -1,8 +1,9 @@
+import PostLogout from "./postLogout";
 
-export default function Logout({ setIsLoggedIn }) { 
+export default function Logout({ setIsLoggedIn }) {
     return (
-        <div > 
+        <div>
+            <PostLogout setIsLoggedIn={setIsLoggedIn} />
         </div>
-        
-    ) 
+    )
 }

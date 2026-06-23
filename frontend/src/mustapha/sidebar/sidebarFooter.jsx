@@ -1,11 +1,10 @@
-// import "./sidebar.css"
+﻿// import "./sidebar.css"
+import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
 
-
-
-
-export default function SidebarFooter( { setLogout } ) {
+export default function SidebarFooter() {
+    const navigate = useNavigate();
 
     return(
         <div className="w-full border-t border-gray-200 shadow-[0_-1px_4px_-2px_rgba(230,228,228,0.637)] flex flex-col gap-4 mt-auto pt-8 pb-8 px-0 bg-white text-sm">
@@ -19,12 +18,11 @@ export default function SidebarFooter( { setLogout } ) {
                 </div>
             </div>
             <div className="px-4">
-                <button className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium text-sm" onClick={() => setLogout(true)}>
+                <button className="flex items-center gap-2 text-red-500 hover:text-red-700 font-medium text-sm" onClick={() => navigate('/logout')}>
                     <LuLogOut className="text-lg" />
                     <span>Logout</span>
                 </button>
             </div>
         </div>
-              
     )
 }

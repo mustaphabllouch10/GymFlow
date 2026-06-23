@@ -1,9 +1,21 @@
 import PostLogout from "./postLogout";
+import LogoutPopUp from "./logoutPopUp";
+import { useState } from "react";
+
 
 export default function Logout({ setIsLoggedIn }) {
+
+    const [ confirmLogout, setConfirmLogout ] = useState(false);
+
+    
+
     return (
         <div>
-            <PostLogout setIsLoggedIn={setIsLoggedIn} />
+            {confirmLogout ? (
+                <PostLogout setIsLoggedIn={setIsLoggedIn} />
+            ) : (
+                <LogoutPopUp confirmLogout={confirmLogout} setConfirmLogout={setConfirmLogout} />
+            )}
         </div>
     )
 }

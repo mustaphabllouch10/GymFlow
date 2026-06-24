@@ -1,5 +1,6 @@
 import { useState , useEffect} from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import PostLogin from "./postLogin";
 
 
@@ -11,6 +12,7 @@ export default function Login({ setIsLoggedIn }) {
 
     const [handleLogin, setHandleLogin] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     useEffect(() => {
     if (handleLogin) {
@@ -64,9 +66,9 @@ export default function Login({ setIsLoggedIn }) {
                         >
                             Password
                         </label>
-                        <div className="bg-gray-50 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-gray-900/10 transition-shadow">
+                        <div className="bg-gray-50 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-gray-900/10 transition-shadow flex items-center justify-between">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 id="password"
                                 name="password"
                                 className="w-full bg-transparent font-mono text-sm text-gray-900 focus:outline-none placeholder:text-gray-400"
@@ -74,6 +76,16 @@ export default function Login({ setIsLoggedIn }) {
                                 value={loginData.password}
                                 onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                             />
+                            {showPassword ? (
+                                <IoEyeOffOutline
+                                    className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                    onClick={() => setShowPassword(false)}
+                                />
+                            ) : (
+                                <IoEyeOutline className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                    onClick={() => setShowPassword(true)}
+                                />
+                            )}
                         </div>
                     </div>
 

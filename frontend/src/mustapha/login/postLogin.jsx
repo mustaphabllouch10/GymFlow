@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn }) {
+export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn, setLoading }) {
 
         const navigate = useNavigate();
         
@@ -20,13 +20,16 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn })
                     
                     console.log("Login successful:", response.data);
                     setIsLoggedIn(true);
-                    setHandleLogin(false);  
+                     
                     navigate("/dashboard"); 
                      
                 }
 
             } catch (error) {
                 console.error("Error checking login status:", error);
+            } finally {
+                setLoading(false)
+                setHandleLogin(false) 
             }
         };
 

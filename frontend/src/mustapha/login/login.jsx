@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import PostLogin from "./postLogin";
+
 
 export default function Login({ setIsLoggedIn }) {
     const [loginData, setLoginData] = useState({
@@ -8,6 +10,14 @@ export default function Login({ setIsLoggedIn }) {
     });
 
     const [handleLogin, setHandleLogin] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+    if (handleLogin) {
+        setLoading(true);
+    }
+    }, [handleLogin]);
+
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100 p-6">
@@ -69,18 +79,20 @@ export default function Login({ setIsLoggedIn }) {
 
                     <button
                         type="submit"
-                        className="w-full bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-800 active:bg-black transition-colors"
+                        className="w-full bg-gray-900 text-white font-semibold py-3 px-4 rounded-xl hover:bg-gray-800 active:bg-black transition-colors "
                     >
-                        Login
+                        {loading ?  <AiOutlineLoading3Quarters className="animate-spin block mx-auto text-2xl" /> : "Login" }
                     </button>
                 </form>
             </div>
 
             {handleLogin && (
+                
                 <PostLogin
                     setIsLoggedIn={setIsLoggedIn}
                     loginData={loginData}
                     setHandleLogin={setHandleLogin}
+                    setLoading={setLoading}
                 />
             )}
         </div>

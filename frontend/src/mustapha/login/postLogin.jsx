@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn, setLoading }) {
+export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn, setLoading , setResponseMessage }) {
 
         const navigate = useNavigate();
         
@@ -12,9 +12,11 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn, s
             try {
                 const response = await axios.post(
                     "http://localhost:8000/api/login" , loginData );
+                    setResponseMessage(response.data.message);
+
 
                 if (response.status === 200) {
-
+                    
                     const token = response.data.access_token;
                     localStorage.setItem("token", token);
                     

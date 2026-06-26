@@ -10,6 +10,8 @@ export default function Login({ setIsLoggedIn }) {
         password: ""
     });
 
+    const [responseMessage, setResponseMessage] = useState("");
+
     const [handleLogin, setHandleLogin] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -77,14 +79,15 @@ export default function Login({ setIsLoggedIn }) {
                                 onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                             />
                             {showPassword ? (
-                                <IoEyeOffOutline
-                                    className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                <IoEyeOutline className="text-gray-400 hover:text-gray-600 cursor-pointer"
                                     onClick={() => setShowPassword(false)}
                                 />
                             ) : (
-                                <IoEyeOutline className="text-gray-400 hover:text-gray-600 cursor-pointer"
+                                <IoEyeOffOutline
+                                    className="text-gray-400 hover:text-gray-600 cursor-pointer"
                                     onClick={() => setShowPassword(true)}
                                 />
+                                
                             )}
                         </div>
                     </div>
@@ -96,7 +99,9 @@ export default function Login({ setIsLoggedIn }) {
                         {loading ?  <AiOutlineLoading3Quarters className="animate-spin block mx-auto text-2xl" /> : "Login" }
                     </button>
                 </form>
+                <h1>{responseMessage}</h1>
             </div>
+
 
             {handleLogin && (
                 
@@ -105,6 +110,7 @@ export default function Login({ setIsLoggedIn }) {
                     loginData={loginData}
                     setHandleLogin={setHandleLogin}
                     setLoading={setLoading}
+                    setResponseMessage={setResponseMessage}
                 />
             )}
         </div>

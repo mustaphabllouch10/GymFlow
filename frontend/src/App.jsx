@@ -8,6 +8,7 @@ import Attendance from "./mustapha/attendance/attendance";
 import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import Login from "./mustapha/login/login";
 import Logout from "./mustapha/login/logout";
+import Dashboard from "./mustapha/dashboard/dashboard";
 import { Routes, Route , Navigate } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
@@ -34,7 +35,7 @@ export default function App() {
   // things i need to add : an error page , and an anothorization page 
   
     const navItems = [
-            { id: "dashboard",     label: "Dashboard", sectionComponents: "" , icon: <RiDashboardLine size={20} /> },
+            { id: "dashboard",     label: "Dashboard", sectionComponents: <Dashboard />, icon: <RiDashboardLine size={20} /> },
             { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
             { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
             { id: "payments",      label: "Payments", sectionComponents: "", icon: <BsWallet2 size={20} /> },

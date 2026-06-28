@@ -19,22 +19,22 @@ Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:san
 
 
 //routes for users , only accessible by admin
-route::apiResource('users', UserController::class);
-// ->middleware('auth:sanctum' , "admin");
+route::apiResource('users', UserController::class)
+->middleware('auth:sanctum' , "admin");
 
 
 // route for dashboard , only accessible by admin
-route::get('/dashboard', [dashboardController::class, 'index'])
-->middleware('auth:sanctum' , "admin");
+route::get('/dashboard/summary', [dashboardController::class, 'summary']);
+// ->middleware('auth:sanctum' , "admin");
 
 
 // routes for members , accessible by both admin and user
 Route::apiResource('members', MemberController::class)
-->middleware('auth:sanctum');
+->middleware('auth:sanctum' , "admin");
 
 // route for dashboard , only accessible by admin
-route::get('/attendance', [AttendanceController::class, 'index']);
-// ->middleware('auth:sanctum' , "admin");
+route::get('/attendance', [AttendanceController::class, 'index'])
+->middleware('auth:sanctum' , "admin");
 
 
 /**

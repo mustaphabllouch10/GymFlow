@@ -14,31 +14,25 @@ class dashboardController extends Controller
 {
     
 
-public function index(){
+public function summary(){
 
     // members : 
-    $membersCount = Member::count();
-    // subscriptions :
-    $subscriptionsCount = Subscription::count();
-    $expiredSubscriptionsCount = Subscription::where('status', 'expired')->count();
+    $membersCount = Member::where('status', 'active')->count();
 
-    // expenses :
-    $expensesCount = Expense::count();
-    $thisMonthExpenses = Expense::whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('amount');
+    // subscriptions :
+    $aboutToExpireSubscriptionsCount = Subscription::whereBetween('end_date', [now()->toDateString(), now()->addDays(7)->toDateString()])->count();
 
     
     // Attendance :
     $todayAttendanceCount = Attendance::whereDate('created_at', now()->toDateString())->count();
-    $activeAttendanceCount = Attendance::where('updated_at', '!=', null)->count();
+    $activeAttendanceCount = Attendance::where('status', 'present')->count();
+
 
 
 
     return response()->json([
-        'membersCount' => $membersCount,
-        'subscriptionsCount' => $subscriptionsCount,
-        'expiredSubscriptionsCount' => $expiredSubscriptionsCount,
-        'expensesCount' => $expensesCount,
-        'thisMonthExpenses' => $thisMonthExpenses,
+        'activeMembersCount' => $membersCount,
+        'aboutToExpireSubscriptionsCount' => $aboutToExpireSubscriptionsCount,
         'todayAttendanceCount' => $todayAttendanceCount,
         'activeAttendanceCount' => $activeAttendanceCount
     ]);

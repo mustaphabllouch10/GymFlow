@@ -52,20 +52,46 @@ public function Plans(){
 
 }
 
-public function checkinSummary(){
-
-    $recentattendance = Attendance::latest('created_at')
+public function checkinSummary()
+{
+    $recentAttendance = Attendance::join(
+        'members',
+        'attendances.member_id',
+        '=',
+        'members.id'
+    )
+    ->latest('attendances.created_at')
+    ->select(
+        'attendances.*',
+        'members.name as member_name'
+    )
     ->take(5)
     ->get();
 
-    return response()->json($recentattendance);
+    return response()->json($recentAttendance);
 }
 
 public function subscriptionSummary()
 {
     
-    $subExpiringSoon = Subscription::whereBetween('end_date', [now()->toDateString(), now()->addDays(7)->toDateString()])
-        ->get();
+    $subExpiringSoon = Subscription::join(
+        'members',
+        'subscriptions.member_id',
+        '=',
+        'members.id'
+    )
+    ->whereBetween(
+        'subscriptions.end_date',
+        [
+            now()->toDateString(),
+            now()->addDays(7)->toDateString()
+        ]
+    )
+    ->select(
+        'subscriptions.*',
+        'members.name as member_name'
+    )
+    ->get();
 
     return response()->json($subExpiringSoon);
 
@@ -75,7 +101,6 @@ public function chart()
 {
     $start = now()->startOfMonth();
     $end   = now()->endOfDay();
-
     $rows = Attendance::selectRaw('DATE(check_in_time) as date, COUNT(*) as count')
         ->whereBetween('check_in_time', [$start, $end])
         ->groupBy('date')

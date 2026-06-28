@@ -11,7 +11,7 @@ export default function Dashboard() {
     return (
         <div className="p-6">
             <Kpis />
-            <div className="flex gap-10  items-start">
+            <div className="flex gap-7  items-start">
                 <div className="w-[70%]">
                     <Chart />
                 </div>
@@ -21,10 +21,10 @@ export default function Dashboard() {
                 </div>
             </div>
             <div className="flex gap-5 items-start">
-                <div className="w-[70%]">
+                <div className="w-[60%]">
                     <CheckinSummary />
                 </div>
-                <div className="w-[30%]">
+                <div className="w-[40%]">
                     <SubSummary />
                 </div>
             </div>

@@ -27,55 +27,68 @@ export default function CheckinSummary() {
   }, []);
 
   return (
-    <div className="rounded-2xl px-5 py-4 bg-white border border-gray-200 text-gray-900">
+    <div className="rounded-2xl px-5 py-4 bg-white border border-gray-200 text-gray-900 mt-5">
       
       {/* Header */}
-      <div className="flex items-center gap-2 mb-5">
+      <div className="flex items-center gap-2 mb-4">
         <FiClock className="text-lg text-gray-400" />
         <span className="text-xs font-medium uppercase tracking-wide text-gray-400">
-          Last Five Check-ins
+          Recent Check-ins
         </span>
       </div>
 
-      {/* Check-ins list */}
-      <div className="flex flex-col gap-4">
-        {checkinSummary.map((checkin) => (
-          <div
-            key={checkin.id}
-            className="flex justify-between items-center border-b border-gray-100 pb-3 last:border-0"
-          >
-            <div>
-              <p className="text-sm font-medium text-gray-900">
-                {checkin.member_name}
-              </p>
+      <div>
+        {checkinSummary.map((checkin) => {
+          const initials = checkin.member_name
+            .split(" ")
+            .map((name) => name[0])
+            .join("")
+            .slice(0, 2);
 
-              <p className="text-xs text-gray-400">
-                In:{" "}
-                {new Date(checkin.check_in_time).toLocaleTimeString([], {
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
-              </p>
+          const isInside = !checkin.check_out_time;
+
+          return (
+            <div
+              key={checkin.id}
+              className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0"
+            >
+              {/* Left */}
+              <div className="flex items-center gap-3">
+                
+                {/* Black avatar */}
+                <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-xs font-medium">
+                  {initials}
+                </div>
+
+                {/* Name */}
+                <p className="font-medium text-sm text-gray-900">
+                  {checkin.member_name}
+                </p>
+              </div>
+
+              {/* Right */}
+              <div className="flex items-center gap-2">
+
+                {/* Time */}
+                <span className="text-sm text-gray-400">
+                  {checkin.check_in_time.slice(0, 5)}
+                </span>
+
+                {/* Status */}
+                <span
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    isInside
+                      ? "bg-green-100 text-green-700"
+                      : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {isInside ? "In" : "Out"}
+                </span>
+
+              </div>
             </div>
-
-            <div className="text-right">
-              <p className="text-xs text-gray-400">
-                Out:
-              </p>
-
-              <p className="text-sm text-gray-700">
-                {checkin.check_out_time
-                  ? new Date(
-                      checkin.check_out_time
-                    ).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })
-                  : "Still inside"}
-              </p>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

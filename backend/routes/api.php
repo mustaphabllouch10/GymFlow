@@ -35,14 +35,15 @@ route::apiResource('users', UserController::class)
 
 
 // route for dashboard , only accessible by admin
-route::get('/dashboard/summary', [dashboardController::class, 'summary']);
-route::get('/dashboard/plans', [dashboardController::class, 'Plans']);
-route::get('/dashboard/checkin-summary', [dashboardController::class, 'checkinSummary']);
-route::get('/dashboard/sub-summary' , [dashboardController::class , 'subscriptionSummary'])
-->middleware(['auth:sanctum', 'abilities:admin']);
+Route::middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
 
-route::get('/dashboard/chart' , [dashboardController::class , 'chart'])
-->middleware('auth:sanctum' , "admin");
+    Route::get('/dashboard/summary', [DashboardController::class, 'summary']);
+    Route::get('/dashboard/plans', [DashboardController::class, 'Plans']);
+    Route::get('/dashboard/checkin-summary', [DashboardController::class, 'checkinSummary']);
+    Route::get('/dashboard/sub-summary', [DashboardController::class, 'subscriptionSummary']);
+    Route::get('/dashboard/chart', [DashboardController::class, 'chart']);
+
+});
 
 
 // routes for members , accessible by both admin and user

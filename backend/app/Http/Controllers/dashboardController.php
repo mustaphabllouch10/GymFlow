@@ -39,5 +39,17 @@ public function summary(){
 
 
 }
+
+
+public function Plans(){
+
+    $plans = Subscription::select('type')
+    ->groupBy('type')
+    ->selectRaw('COUNT(*) as count')
+    ->get();
+
+    return response()->json($plans);
+
+}
 }
 

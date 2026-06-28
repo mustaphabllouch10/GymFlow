@@ -8,7 +8,13 @@ export default function Kpis() {
     useEffect(() => {
         const fetchKpis = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/dashboard/summary');
+                const response = await axios.get('http://localhost:8000/api/dashboard/summary' , 
+                    {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                }
+                );
                 setKpis(response.data);
                 
             } catch (error) {

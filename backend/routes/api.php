@@ -14,6 +14,17 @@ use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\AttendanceController;
 
+// just getting some data about the token : i used it to debug and i'll just leave it here , my code my decision
+Route::middleware('auth:sanctum')->get('/test-token', function (Request $request) {
+
+    return response()->json([
+        'user' => $request->user(),
+        'canAdmin' => $request->user()->tokenCan('admin'),
+        'tokenAbilities' => $request->user()->currentAccessToken()->abilities
+    ]);
+
+});
+
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
 
@@ -26,7 +37,12 @@ route::apiResource('users', UserController::class)
 // route for dashboard , only accessible by admin
 route::get('/dashboard/summary', [dashboardController::class, 'summary']);
 route::get('/dashboard/plans', [dashboardController::class, 'Plans']);
-// ->middleware('auth:sanctum' , "admin")
+route::get('/dashboard/checkin-summary', [dashboardController::class, 'checkinSummary']);
+route::get('/dashboard/sub-summary' , [dashboardController::class , 'subscriptionSummary'])
+->middleware(['auth:sanctum', 'abilities:admin']);
+
+route::get('/dashboard/chart' , [dashboardController::class , 'chart'])
+->middleware('auth:sanctum' , "admin");
 
 
 // routes for members , accessible by both admin and user

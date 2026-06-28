@@ -26,7 +26,7 @@ route::apiResource('users', UserController::class)
 // route for dashboard , only accessible by admin
 route::get('/dashboard/summary', [dashboardController::class, 'summary']);
 route::get('/dashboard/plans', [dashboardController::class, 'Plans']);
-// ->middleware('auth:sanctum' , "admin");
+// ->middleware('auth:sanctum' , "admin")
 
 
 // routes for members , accessible by both admin and user

@@ -7,6 +7,25 @@ import { useEffect , useState} from "react";
 export default function SidebarFooter() {
     const navigate = useNavigate();
 
+    const [ user , setUser] = useState()
+
+        useEffect(() => {
+        const getUser = async () => {
+            try {
+                const { data } = await axios.get("http://localhost:8000/api/role",  {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    }
+                });
+                setUser(data) ;
+            } catch (error) {
+                console.error("Error occurred during getting user:", error);
+            }
+        };
+
+        getUser();
+    }, []);
+
     
 
     return(
@@ -16,8 +35,8 @@ export default function SidebarFooter() {
                     <FiUser className="text-xl text-gray-600"/>
                 </span>
                 <div>
-                    <p className="font-semibold text-gray-800 text-sm leading-tight">John Doe</p>
-                    <p className="text-xs text-gray-400 leading-tight">Admin</p>
+                    <p className="font-semibold text-gray-800 text-sm leading-tight">{user.user.name}</p>
+                    <p className="text-xs text-gray-400 leading-tight">{user}</p>
                 </div>
             </div>
             <div className="px-4">

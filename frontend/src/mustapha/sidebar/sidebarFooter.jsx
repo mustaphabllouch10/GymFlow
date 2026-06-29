@@ -1,10 +1,13 @@
 ﻿// import "./sidebar.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
+import { useEffect , useState} from "react";
 
 export default function SidebarFooter() {
     const navigate = useNavigate();
+
+    
 
     return(
         <div className="w-full border-t border-gray-200 shadow-[0_-1px_4px_-2px_rgba(230,228,228,0.637)] flex flex-col gap-4 mt-auto pt-8 pb-8 px-0 bg-white text-sm">

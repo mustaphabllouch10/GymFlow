@@ -15,11 +15,10 @@ use App\Http\Controllers\CheckinController;
 use App\Http\Controllers\AttendanceController;
 
 // just getting some data about the token : i used it to debug and i'll just leave it here , my code my decision
-Route::middleware('auth:sanctum')->get('/test-token', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/role', function (Request $request) {
 
     return response()->json([
         'user' => $request->user(),
-        'canAdmin' => $request->user()->tokenCan('admin'),
         'tokenAbilities' => $request->user()->currentAccessToken()->abilities
     ]);
 

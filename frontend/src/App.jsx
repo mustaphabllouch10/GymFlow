@@ -12,7 +12,10 @@ import Dashboard from "./mustapha/dashboard/dashboard";
 import { Routes, Route , Navigate } from "react-router-dom";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
+import { BiLayer } from "react-icons/bi";
+import { IoCalendarClearOutline } from "react-icons/io5";
 import { MdOutlineCreditCard } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
 import { BsWallet2 } from "react-icons/bs";
 import { LuScanLine } from "react-icons/lu";
 import { useLocation } from "react-router-dom";
@@ -38,9 +41,10 @@ export default function App() {
             { id: "dashboard",     label: "Dashboard", sectionComponents: <Dashboard />, icon: <RiDashboardLine size={20} /> },
             { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
             { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
-            { id: "payments",      label: "Payments", sectionComponents: "", icon: <BsWallet2 size={20} /> },
-            { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <LuScanLine size={20} /> },
+            { id: "plans",      label: "plans", sectionComponents: "", icon: <BiLayer size={20} /> },
+            { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
             { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
+            { id: "settings",    label: "Settings", sectionComponents: "", icon: <IoSettingsOutline size={20} /> },
     ];  
 
     const location = useLocation();

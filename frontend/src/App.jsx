@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "./mustapha/sidebar/sidebar";
 import TopBar from "./mustapha/topbar/topbar";
 import Members from "./mustapha/members/members";
+import Member from "./mustapha/members/selectedMember/member";
 import Attendance from "./mustapha/attendance/attendance";
 import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import Login from "./mustapha/login/login";
@@ -13,6 +14,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { BiLayer } from "react-icons/bi";
+import { LuUsers } from "react-icons/lu";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { MdOutlineCreditCard } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -57,7 +59,7 @@ export default function App() {
                           Authorization: `Bearer ${localStorage.getItem("token")}`, 
                       },
                   }
-              );
+              ); 
 
               setUserData(data);
 
@@ -85,6 +87,7 @@ export default function App() {
             { id: "plans",      label: "plans", sectionComponents: "", icon: <BiLayer size={20} /> },
             { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
             { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
+            { id: "employees",    label: "Employees", sectionComponents: "", icon: <LuUsers size={20} /> },
             { id: "settings",    label: "Settings", sectionComponents: "", icon: <IoSettingsOutline size={20} /> },
     ]; 
 
@@ -138,6 +141,7 @@ export default function App() {
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
               <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} setLogoutLoading={setLogoutLoading} />} />
+              <Route path="/members/:id" element={<Member />} />
             </Routes>
           </div>
       </div>

@@ -1,17 +1,23 @@
 import { useState } from "react";
 import GenerateQr from "./gererateMemberQrCode";
+import { useLocation, useNavigate } from "react-router-dom";
 
-export default function Member({ member, setSelectedMember }) {
+export default function Member({ member: propMember, members: propMembers }) {
   const [showQr, setShowQr] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const member = location.state?.member || propMember;
+  const members = location.state?.members || propMembers || [];
+  const selectedMember = members.find((item) => item.id === member?.id) || member;
 
-  const initials = (member?.name || member?.fullName || "?")
+  const initials = (selectedMember?.name || selectedMember?.fullName || "?")
     .split(" ")
     .map((w) => w[0])
     .join("")
     .toUpperCase()
     .slice(0, 2);
 
-  const isActive = member?.status?.toLowerCase() === "active";
+  const isActive = selectedMember?.status?.toLowerCase() === "active";
 
   const handleDownloadQr = () => {
     const canvas = document.querySelector("#qr-popup canvas");
@@ -19,7 +25,7 @@ export default function Member({ member, setSelectedMember }) {
 
     if (canvas) {
       const link = document.createElement("a");
-      link.download = `${member?.name || "member"}-qr.png`;
+      link.download = `${selectedMember?.name || "member"}-qr.png`;
       link.href = canvas.toDataURL("image/png");
       link.click();
     } else if (svg) {
@@ -27,7 +33,7 @@ export default function Member({ member, setSelectedMember }) {
       const svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
       const url = URL.createObjectURL(svgBlob);
       const link = document.createElement("a");
-      link.download = `${member?.name || "member"}-qr.svg`;
+      link.download = `${selectedMember?.name || "member"}-qr.svg`;
       link.href = url;
       link.click();
       URL.revokeObjectURL(url);
@@ -44,7 +50,7 @@ export default function Member({ member, setSelectedMember }) {
         {/* Header */}
         <div className="flex items-center gap-4 px-8 py-4 border-b border-gray-100">
           <button
-            onClick={() => setSelectedMember(null)}
+            onClick={() => navigate(-1)}
             className="flex items-center gap-2 text-sm font-medium text-gray-500 border border-gray-200 rounded-lg px-4 py-2 hover:bg-gray-50 hover:border-gray-300 transition-all"
           >
             ← Back
@@ -60,11 +66,11 @@ export default function Member({ member, setSelectedMember }) {
             </div>
             <div>
               <p className="text-xl font-semibold text-gray-900">
-                {member?.name || member?.fullName || "—"}
+                {selectedMember?.name || selectedMember?.fullName || "—"}
               </p>
               <span className={`inline-flex items-center gap-1.5 mt-1.5 px-3 py-1 rounded-full text-xs font-medium ${isActive ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>
                 <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-green-500" : "bg-red-400"}`} />
-                {member?.status || "—"}
+                {selectedMember?.status || "—"}
               </span>
             </div>
           </div>
@@ -73,15 +79,15 @@ export default function Member({ member, setSelectedMember }) {
           <div className="grid grid-cols-2 gap-3 mb-6">
             <div className="col-span-2 bg-gray-50 rounded-xl px-4 py-3.5">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-1">Email</p>
-              <p className="text-sm font-medium text-gray-800 font-mono">{member?.email || "—"}</p>
+              <p className="text-sm font-medium text-gray-800 font-mono">{selectedMember?.email || "—"}</p>
             </div>
             <div className="bg-gray-50 rounded-xl px-4 py-3.5">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-1">Phone</p>
-              <p className="text-sm font-medium text-gray-800 font-mono">{member?.phone || "—"}</p>
+              <p className="text-sm font-medium text-gray-800 font-mono">{selectedMember?.phone || "—"}</p>
             </div>
             <div className="bg-gray-50 rounded-xl px-4 py-3.5">
               <p className="text-[11px] font-semibold uppercase tracking-widest text-gray-400 mb-1">Join Date</p>
-              <p className="text-sm font-medium text-gray-800 font-mono">{member?.joined_date || "—"}</p>
+              <p className="text-sm font-medium text-gray-800 font-mono">{selectedMember?.joined_date || "—"}</p>
             </div>
           </div>
 
@@ -118,7 +124,7 @@ export default function Member({ member, setSelectedMember }) {
             <div className="w-full flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-semibold text-gray-900">Member QR Code</h3>
-                <p className="text-xs text-gray-400 mt-0.5">{member?.name || member?.fullName}</p>
+                <p className="text-xs text-gray-400 mt-0.5">{selectedMember?.name || selectedMember?.fullName}</p>
               </div>
               <button
                 onClick={() => setShowQr(false)}
@@ -130,10 +136,10 @@ export default function Member({ member, setSelectedMember }) {
 
             {/* QR Code */}
             <div id="qr-popup" className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex items-center justify-center">
-              <GenerateQr id={member.id} />
+              <GenerateQr id={selectedMember?.id} />
             </div>
 
-            <p className="text-xs text-gray-400 font-mono tracking-wider">ID · {member?.id}</p>
+            <p className="text-xs text-gray-400 font-mono tracking-wider">ID · {selectedMember?.id}</p>
 
             {/* Actions */}
             <div className="flex gap-2 w-full">

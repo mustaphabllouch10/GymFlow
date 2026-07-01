@@ -45,6 +45,8 @@ Route::middleware(['auth:sanctum', 'abilities:admin'])->group(function () {
 });
 
 
+
+
 // routes for members , accessible by both admin and user
 Route::apiResource('members', MemberController::class)
 ->middleware('auth:sanctum');

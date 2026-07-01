@@ -1,35 +1,10 @@
 ﻿import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
-import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function SidebarFooter() {
+export default function SidebarFooter( { userData }) {
     const navigate = useNavigate();
-
-    const [userData, setUserData] = useState(null);
-
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                const { data } = await axios.get(
-                    "http://localhost:8000/api/role",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem("token")}`,
-                        },
-                    }
-                );
-
-                setUserData(data);
-
-            } catch (error) {
-                console.error("Error occurred during getting user:", error);
-            }
-        };
-
-        getUser();
-    }, []);
 
     return (
         <div className="w-full border-t border-gray-200 shadow-[0_-1px_4px_-2px_rgba(230,228,228,0.637)] flex flex-col gap-4 mt-auto pt-8 pb-8 px-0 bg-white text-sm">

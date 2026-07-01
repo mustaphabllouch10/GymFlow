@@ -1,6 +1,5 @@
-
-// import "./App.css";
 import { useState , useEffect} from "react";
+import axios from "axios";
 import Sidebar from "./mustapha/sidebar/sidebar";
 import TopBar from "./mustapha/topbar/topbar";
 import Members from "./mustapha/members/members";
@@ -10,6 +9,7 @@ import Login from "./mustapha/login/login";
 import Logout from "./mustapha/login/logout";
 import Dashboard from "./mustapha/dashboard/dashboard";
 import { Routes, Route , Navigate } from "react-router-dom";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiDashboardLine } from "react-icons/ri";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { BiLayer } from "react-icons/bi";
@@ -26,18 +26,58 @@ import { useLocation } from "react-router-dom";
 export default function App() {
 
   const [isloggedIn, setIsLoggedIn] = useState(true);
+  const [appLoading, setAppLoading] = useState(false);
+
   useEffect(() => {
-  if (localStorage.getItem("token")){ 
-  setIsLoggedIn(true);
+
+      if (localStorage.getItem("token")){ 
+      setIsLoggedIn(true);
+
   } else {
-  setIsLoggedIn(false);
+
+      setIsLoggedIn(false);
+
   }
-}, []);
+ }, [isloggedIn]);
+
+
+
+
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+      const getUser = async () => {
+          try {
+            setAppLoading(true);
+              const { data } = await axios.get(
+                  "http://localhost:8000/api/role",
+                  {
+                      headers: {
+                          Authorization: `Bearer ${localStorage.getItem("token")}`, 
+                      },
+                  }
+              );
+
+              setUserData(data);
+
+          } catch (error) {
+              console.error("Error occurred during getting user:", error);
+          } finally {
+              setAppLoading(false);
+          }
+      };
+
+      getUser();
+}, [isloggedIn]);
 
 
   // things i need to add : an error page , and an anothorization page 
-  
-    const navItems = [
+
+  const userRole = userData?.user?.role || null;
+  let navItems = [];
+  if(userRole === "admin"){
+
+    navItems = [
             { id: "dashboard",     label: "Dashboard", sectionComponents: <Dashboard />, icon: <RiDashboardLine size={20} /> },
             { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
             { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
@@ -45,17 +85,43 @@ export default function App() {
             { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
             { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
             { id: "settings",    label: "Settings", sectionComponents: "", icon: <IoSettingsOutline size={20} /> },
-    ];  
+    ]; 
+
+  }else if (userRole === "user"){
+
+    navItems = [
+            { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
+            { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
+            { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
+            { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
+            { id: "settings",    label: "Settings", sectionComponents: "", icon: <IoSettingsOutline size={20} /> },
+    ];
+
+  }
+
+ 
 
     const location = useLocation();
     const currentPath = location.pathname;
     console.log("Current Path:", currentPath);
 
+  if (appLoading) {
+
+    return (
+      <div className="flex flex-col items-center justify-center h-screen gap-4">
+        <AiOutlineLoading3Quarters className="animate-spin text-5xl"/>
+          <p className="text-sm text-gray-500">
+              Loading...
+        </p>
+      </div>
+    );
+  }
+
   return (
     ( isloggedIn ?  
     <div className="flex h-screen">
       <div className="w-[270px]">
-          <Sidebar currentPath={currentPath} navItems={navItems} setIsLoggedIn={setIsLoggedIn} />
+          <Sidebar currentPath={currentPath} navItems={navItems}  userData={userData} />
       </div>
       <div className="flex-1 bg-[#f5f5f5] flex flex-col h-screen overflow-hidden">
           <TopBar currentPath={currentPath} />
@@ -79,7 +145,7 @@ export default function App() {
         <Routes>
         <Route
           path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          element={<Login setIsLoggedIn={setIsLoggedIn} userRole={userRole} />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes> )

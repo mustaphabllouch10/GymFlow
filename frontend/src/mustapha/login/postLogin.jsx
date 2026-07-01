@@ -22,9 +22,16 @@ export default function PostLogin({ loginData , setHandleLogin, setIsLoggedIn, s
                     
                     console.log("Login successful:", response.data);
                     setIsLoggedIn(true);
-                     
-                    navigate("/dashboard"); 
-                     
+
+                    const role = response.data.user.role;
+                    console.log("User role:", role);
+
+                    if(role === "admin") {
+                        navigate("/dashboard");
+                    } else if(role === "user") {
+                        navigate("/members");
+                    }
+
                 }
 
             } catch (error) {

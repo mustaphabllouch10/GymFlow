@@ -41,6 +41,7 @@ export default function Members() {
           </div>
 
           <Fetching setMembers={setMembers} searchTerm={searchTerm} setIsLoading={setIsLoading} />
+          {showAddMember && (<AddMember />)}
         </div>) 
     
 }

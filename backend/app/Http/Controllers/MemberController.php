@@ -23,7 +23,7 @@ class MemberController extends Controller
                   ->orWhere('phone', 'like', "%$search%" );
             });
         }
-        $members = $query->paginate(10);
+        $members = $query->paginate(30);
         return response()->json($members);
     }
 
@@ -37,6 +37,7 @@ class MemberController extends Controller
             'email' => 'required|email|unique:members,email',
             'phone' => 'required|string|max:20|unique:members,phone',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'nullable',
             'joined_date' => 'required|date',
         ]);
 
@@ -71,6 +72,7 @@ class MemberController extends Controller
             'email' => 'sometimes|required|email|unique:members,email,' . $id,
             'phone' => 'sometimes|required|string|max:20|unique:members,phone,' . $id,
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'nullable',
             'joined_date' => 'sometimes|required|date',
         ]);
 

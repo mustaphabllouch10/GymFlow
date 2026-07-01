@@ -10,7 +10,12 @@ export default function FetchingAttendence({ setAttendanceData, filters }) {
     if (filters.status)   params.append("status",    filters.status);
 
     axios
-      .get(`http://localhost:8000/api/attendance?${params.toString()}`)
+      .get(`http://localhost:8000/api/attendance?${params.toString()}` , 
+    {
+      headers: { 
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+    }}
+    )
       .then((response) => {
         setAttendanceData(response.data.data || response.data);
       })

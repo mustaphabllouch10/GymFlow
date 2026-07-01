@@ -10,7 +10,6 @@ function getInitials(name) {
 }
 
 export default function AddMember({ onClose }) {
-  const [isOpen, setIsOpen] = useState(true);
   const [newMember, setNewMember] = useState({
     name: "",
     email: "",
@@ -20,7 +19,6 @@ export default function AddMember({ onClose }) {
   const [error, setError] = useState("");
 
   const closeModal = () => {
-    setIsOpen(false);
     if (onClose) onClose();
   };
 
@@ -64,12 +62,10 @@ export default function AddMember({ onClose }) {
       setNewMember({ name: "", email: "", phone: "", status: "active" });
       closeModal();
     } catch (err) {
-  console.log(err.response?.data);
-  setError(JSON.stringify(err.response?.data.errors));
+      console.error("Error adding member:", err);
+      setError("Couldn't add member. Try again.");
     }
   };
-
-  if (!isOpen) return null;
 
   const modal = (
     <div

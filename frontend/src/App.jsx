@@ -9,6 +9,7 @@ import QrScanner from "./mustapha/QrScanner/Qrscanner";
 import Login from "./mustapha/login/login";
 import Logout from "./mustapha/login/logout";
 import Dashboard from "./mustapha/dashboard/dashboard";
+import Subscriptions from "./mustapha/subscriptions/subscriptions";
 import { Routes, Route , Navigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiDashboardLine } from "react-icons/ri";
@@ -83,7 +84,7 @@ export default function App() {
     navItems = [
             { id: "dashboard",     label: "Dashboard", sectionComponents: <Dashboard />, icon: <RiDashboardLine size={20} /> },
             { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
-            { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
+            { id: "subscriptions", label: "Subscriptions", sectionComponents: <Subscriptions />, icon: <MdOutlineCreditCard size={20} /> },
             { id: "plans",      label: "plans", sectionComponents: "", icon: <BiLayer size={20} /> },
             { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
             { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
@@ -95,7 +96,7 @@ export default function App() {
 
     navItems = [
             { id: "members",       label: "Members", sectionComponents: <Members />, icon: <PiUsersThreeBold size={20} /> },
-            { id: "subscriptions", label: "Subscriptions", sectionComponents: "", icon: <MdOutlineCreditCard size={20} /> },
+            { id: "subscriptions", label: "Subscriptions", sectionComponents: <Subscriptions />, icon: <MdOutlineCreditCard size={20} /> },
             { id: "attendance",    label: "Attendance", sectionComponents: <Attendance />, icon: <IoCalendarClearOutline size={20} /> },
             { id: "checkin",    label: "Check In", sectionComponents: <QrScanner />, icon: <LuScanLine size={20} /> },
             { id: "settings",    label: "Settings", sectionComponents: "", icon: <IoSettingsOutline size={20} /> },

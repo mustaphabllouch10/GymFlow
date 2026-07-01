@@ -61,14 +61,10 @@ route::get('/attendance', [AttendanceController::class, 'index'])
  */
 
 // routes for subscriptions , accessible by both admin and user
-Route::apiResource('members.subscriptions', SubscriptionController::class);
-// ->middleware('auth:sanctum');
+Route::apiResource('subscriptions', SubscriptionController::class)
+->middleware('auth:sanctum');
 
-// this route is for the admin to see all the subscriptions in the system , and it will be paginated
-Route::get('/subscriptions', function () {
-    $subscriptions = Subscription::with('member')->paginate(5);
-    return response()->json($subscriptions);
-});
+
 // ->middleware('auth:sanctum');
 
 // we will need routes for the attendance , i get back to it rlly quick

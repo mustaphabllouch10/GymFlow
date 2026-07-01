@@ -20,7 +20,7 @@ class SubscriptionController extends Controller
      */
     public function index(Member $member)
     {
-        $subscription = $member->subscriptions()->paginate(5);
+        $subscription = Subscription::with('member')->get();
         return response()->json($subscription);
 
         

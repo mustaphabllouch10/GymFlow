@@ -26,7 +26,8 @@ import { useLocation } from "react-router-dom";
 export default function App() {
 
   const [isloggedIn, setIsLoggedIn] = useState(true);
-  const [appLoading, setAppLoading] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   useEffect(() => {
 
@@ -48,7 +49,7 @@ export default function App() {
   useEffect(() => {
       const getUser = async () => {
           try {
-            setAppLoading(true);
+              setLoginLoading(true);
               const { data } = await axios.get(
                   "http://localhost:8000/api/role",
                   {
@@ -63,7 +64,7 @@ export default function App() {
           } catch (error) {
               console.error("Error occurred during getting user:", error);
           } finally {
-              setAppLoading(false);
+              setLoginLoading(false);
           }
       };
 
@@ -105,13 +106,13 @@ export default function App() {
     const currentPath = location.pathname;
     console.log("Current Path:", currentPath);
 
-  if (appLoading) {
+  if (loginLoading || logoutLoading) {
 
     return (
       <div className="flex flex-col items-center justify-center h-screen gap-4">
         <AiOutlineLoading3Quarters className="animate-spin text-5xl"/>
           <p className="text-sm text-gray-500">
-              Loading...
+              {loginLoading ? "Logging in..." : "Logging out..."}
         </p>
       </div>
     );
@@ -136,7 +137,7 @@ export default function App() {
                 />
               ))}
               <Route path="*" element={<div className="p-8 text-gray-500">Page not found.</div>} />
-              <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+              <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} setLogoutLoading={setLogoutLoading} />} />
             </Routes>
           </div>
       </div>
@@ -145,7 +146,7 @@ export default function App() {
         <Routes>
         <Route
           path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} userRole={userRole} />}
+          element={<Login setIsLoggedIn={setIsLoggedIn} userRole={userRole} setLoginLoading={setLoginLoading}  />}
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes> )

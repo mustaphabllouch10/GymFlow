@@ -4,7 +4,7 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import PostLogin from "./postLogin";
 
 
-export default function Login({ setIsLoggedIn, userRole }) {
+export default function Login({ setIsLoggedIn }) {
     const [loginData, setLoginData] = useState({
         email: "",
         password: ""
@@ -111,7 +111,6 @@ export default function Login({ setIsLoggedIn, userRole }) {
                     setHandleLogin={setHandleLogin}
                     setLoading={setLoading}
                     setResponseMessage={setResponseMessage}
-                    userRole={userRole}
                 />
             )}
         </div>

@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export default function PostLogout({ setIsLoggedIn }) {
+export default function PostLogout({ setIsLoggedIn , setLogoutLoading }) {
     const navigate = useNavigate();
 
     useEffect(() => {
         const performLogout = async () => {
             try {
+                setLogoutLoading(true);
+
                 await axios.post("http://localhost:8000/api/logout", {}, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -18,6 +20,7 @@ export default function PostLogout({ setIsLoggedIn }) {
             } finally {
                 localStorage.removeItem("token");
                 setIsLoggedIn(false);
+                setLogoutLoading(false);
                 navigate("/login");
             }
         };
@@ -26,8 +29,6 @@ export default function PostLogout({ setIsLoggedIn }) {
     }, [navigate, setIsLoggedIn]);
 
     return (
-        <div>
-            logging out...
-        </div>
+        null
     );
 }
